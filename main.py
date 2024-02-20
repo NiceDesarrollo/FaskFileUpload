@@ -2,6 +2,7 @@ from flask import Flask, render_template, request
 import os
 app = Flask(__name__)
 
+#Nombre de la carpeta donde se guardaran los documentos
 app.config["UPLOAD_DIR"] = "uploads"
 @app.route("/upload", methods = ["POST"])
 def upload():
