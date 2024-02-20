@@ -1,6 +1,7 @@
 import os
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
+import whisper
 
 UPLOAD_FOLDER = './uploads'
 ALLOWED_EXTENSIONS = {'mp3'}
@@ -28,6 +29,15 @@ def upload():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             return "success"
+        
+        #Nombre de la carpeta donde se guardaran los documentos
+@app.route("/run", methods = ["POST"])
+def run():
+    
+    model = whisper.load_model("base")
+    result = model.transcribe('./uploads/audio.mp3')
+
+    return result["text"]
         
 if __name__ == "__main__":
     app.run()
