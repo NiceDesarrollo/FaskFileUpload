@@ -1,0 +1,34 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Lexend+Deca:wght@100..900&display=swap');
+
+*{
+    box-sizing: border-box;
+    position: relative;
+    min-width: 0;
+    font-family: "Lexend Deca", "sans-serif";
+}
+
+body{
+    min-height: 100dvh;
+}
+
+h1,h2,h3,h4,h5,h6{
+    text-wrap: balance;
+}
+
+p{
+    text-wrap: pretty;
+}
+
+header{
+    background-color: #fff5f1;
+}
+
+button{
+    background-color: #ff7c44 !important;
+}
+
+.header-title{
+    color: #ff7c44;
+}
+

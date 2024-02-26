@@ -1,18 +1,25 @@
 import os
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 import whisper
+from flask_cors import CORS
 
-UPLOAD_FOLDER = './uploads'
-ALLOWED_EXTENSIONS = {'mp3'}
+UPLOAD_FOLDER = "./uploads"
+
+ALLOWED_EXTENSIONS = {'mp3', 'mp4'}
 
 
 app = Flask(__name__)
+CORS(app)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           
+@app.route("/", methods = ["GET"])
+def hello():
+    return render_template('index.html')
 
 #Nombre de la carpeta donde se guardaran los documentos
 @app.route("/upload", methods = ["POST"])
@@ -27,17 +34,16 @@ def upload():
             return 'No selected file'
         if file and allowed_file(file.filename):
             filename = secure_filename(file.filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return "success"
+            filePath = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(filePath)
+            
+            model = whisper.load_model('base')
+            result = model.transcribe(filePath, language="es")
+            
+            return {
+                "text": result['text']
+            }, 200
         
-        #Nombre de la carpeta donde se guardaran los documentos
-@app.route("/run", methods = ["POST"])
-def run():
-    
-    model = whisper.load_model("base")
-    result = model.transcribe('./uploads/audio.mp3')
-
-    return result["text"]
         
 if __name__ == "__main__":
-    app.run()
+    app.run(host='0.0.0.0', port='8080', debug=True)
