@@ -61,7 +61,6 @@
     </div>
 
     <div id="homeform" class="text-center mt-10 md:mt-32">
-      
       <form action="">
         <h1 class="text-6xl mb-5 mx-1">Convertir audio a texto</h1>
 
@@ -71,10 +70,19 @@
         </div>
 
         <div class="flex items-center justify-center mx-auto w-1/2 mt-5">
-          
+          <div
+            class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
+            role="alert"
+          >
+            <strong class="font-bold">Holy smokes!</strong>
+            <span class="block sm:inline"
+              >Something seriously bad happened.</span
+            >
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+            </span>
+          </div>
         </div>
 
-      
         <div class="flex items-center justify-center mx-auto w-1/2 mt-5">
           <label
             style="background-color: #fff5f1 !important"
@@ -92,7 +100,7 @@
               </span>
             </div>
 
-            <h1 class="pt-5" id="selectedFileName" style=" color: #ff7c44;"></h1>
+            <h1 class="pt-5" id="selectedFileName" style="color: #ff7c44"></h1>
 
             <input
               id="dropzone-file"
@@ -126,8 +134,6 @@
         </div>
       </form>
     </div>
-
-    
 
     <script src="{{url_for('static', filename='js/main.js')}}"></script>
   </body>
