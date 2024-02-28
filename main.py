@@ -3,6 +3,7 @@ from flask import Flask, flash, request, redirect, url_for, render_template
 from werkzeug.utils import secure_filename
 import whisper
 from flask_cors import CORS
+import time
 
 UPLOAD_FOLDER = "./uploads"
 
@@ -20,6 +21,13 @@ def allowed_file(filename):
 @app.route("/", methods = ["GET"])
 def hello():
     return render_template('index.html')
+
+@app.route("/test", methods = ["POST"])
+def test():
+    time.sleep(2.5)
+    return {
+        "text": 'lorem ipsum xxx'
+        }, 200
 
 #Nombre de la carpeta donde se guardaran los documentos
 @app.route("/upload", methods = ["POST"])

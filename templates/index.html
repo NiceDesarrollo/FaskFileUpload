@@ -61,25 +61,72 @@
     </div>
 
     <div id="homeform" class="text-center mt-10 md:mt-32">
-      <form action="">
-        <h1 class="text-6xl mb-5 mx-1">Convertir audio a texto</h1>
+      <h1 class="text-6xl mb-5 mx-1">Convertir audio a texto</h1>
 
+      <div
+        id="textResponseCard"
+        style="display: none"
+        class="flex items-center justify-center mx-auto w-1/2 mt-5"
+      >
+        <div
+          class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
+        >
+          <h5
+            class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"
+          >
+            Contenido:
+          </h5>
+          <p
+            id="textResponse"
+            class="font-normal text-gray-700 dark:text-gray-400"
+          ></p>
+
+          <button
+            class="text-white py-2 px-4 rounded flex-end mt-10"
+            onclick="convertButtonAgain()"
+          >
+            Volver a convertir
+          </button>
+        </div>
+      </div>
+
+      <div style="display: none" id="loadingSpinner">
+        <h2 class="text-4xl mt-10 mx-1">Transcribiendo.....</h2>
+
+        <div class="lds-spinner mt-20">
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
+        </div>
+      </div>
+
+      <form id="audioForm" enctype="multipart/form-data">
         <div>
           <span class="circle">1</span>
           <h1 class="circle-text">Sube tu archivo MP3</h1>
         </div>
 
-        <div class="flex items-center justify-center mx-auto w-1/2 mt-5">
+        <div
+          id="alertError"
+          style="display: none"
+          class="flex items-center justify-center mx-auto w-1/2 mt-5"
+        >
           <div
             class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative"
             role="alert"
           >
-            <strong class="font-bold">Holy smokes!</strong>
-            <span class="block sm:inline"
-              >Something seriously bad happened.</span
-            >
-            <span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-            </span>
+            <strong class="font-bold">Extensión invalida</strong>
+            <span class="block sm:inline">Subir en formato MP3.</span>
+            <span class="absolute top-0 bottom-0 right-0 px-4 py-3"> </span>
           </div>
         </div>
 
@@ -121,6 +168,7 @@
             class="flex flex-col items-center justify-center w-full h-32 rounded-lg"
           >
             <button
+              id="submitButtonForm"
               type="submit"
               style="background-color: #ff7c44 !important"
               class="text-white py-2 px-4 rounded flex items-center"
