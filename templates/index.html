@@ -63,6 +63,14 @@
     <div id="homeform" class="text-center mt-10 md:mt-32">
       <h1 class="text-6xl mb-5 mx-1">Convertir audio a texto</h1>
 
+      <h3
+        style="display: none"
+        id="infoCopyClipboardText"
+        class="text-3xl mb-5 mx-1"
+      >
+        Haz click en el texto para copiarlo
+      </h3>
+
       <div
         id="textResponseCard"
         style="display: none"
@@ -78,7 +86,10 @@
           </h5>
           <p
             id="textResponse"
+            onclick="copyToClipboard()"
             class="font-normal text-gray-700 dark:text-gray-400"
+            style="cursor: pointer"
+            title="Presionar para copiar"
           ></p>
 
           <button

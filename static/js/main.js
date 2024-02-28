@@ -7,6 +7,10 @@ const fileInput = document.getElementById("dropzone-file");
 const selectedFileName = document.getElementById("selectedFileName");
 const textResponseCard = document.getElementById("textResponseCard");
 const textResponse = document.getElementById("textResponse");
+const infoCopyClipboardText = document.getElementById("infoCopyClipboardText");
+
+
+
 
 form.addEventListener("submit", async (event) => {
   event.preventDefault(); // Prevent default form submission
@@ -26,13 +30,13 @@ form.addEventListener("submit", async (event) => {
   }
 
   const formData = new FormData();
-  formData.append("audioFile", file);
+  formData.append("file", file);
 
   form.style.display = "none";
   loadingSpinner.style.display = "inline-block";
 
   try {
-    const response = await fetch("http://127.0.0.1:8080/test", {
+    const response = await fetch("http://34.31.51.194:8080/upload", {
       method: "POST",
       body: formData,
     });
@@ -40,6 +44,7 @@ form.addEventListener("submit", async (event) => {
     if (response.ok) {
       const data = await response.json();
       textResponseCard.style.display = "flex";
+      infoCopyClipboardText.style.display = "block";  
       textResponse.textContent = data.text;
     } else {
       form.style.display = "block";
@@ -110,4 +115,21 @@ function checkFileSelection() {
   } else {
     console.log("No file selected");
   }
+}
+
+function copyToClipboard() {
+  const sectionText = document.getElementById("textResponse").textContent;
+  const input = document.createElement("input");
+  input.value = sectionText;
+  document.body.appendChild(input);
+  input.select();
+  navigator.clipboard.writeText(sectionText).then(() => {
+    infoCopyClipboardText.textContent = 'Texto copiado \u{2705}'
+    setTimeout(() => {
+      infoCopyClipboardText.textContent = 'Haz click en el texto para copiarlo'
+    }, "5000");
+  }, () => {
+    console.log("Failed to copy the text!");
+  });
+  document.body.removeChild(input);
 }
